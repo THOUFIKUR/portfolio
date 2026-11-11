@@ -12,19 +12,19 @@ interface SpotlightCardProps {
 const variantSurface: Record<SignatureCardVariant, { container: string; spotlight: string; topBar: string }> = {
   forest: {
     container:
-      'bg-gradient-to-br from-[#193B22]/92 via-[#13291A]/95 to-[#0E1E13]/96 border-emerald-400/20 hover:border-emerald-300/45 shadow-[0_20px_50px_-22px_rgba(16,80,36,0.55)]',
+      'bg-gradient-to-br from-[#193B22]/90 via-[#13291A]/95 to-[#0E1E13]/95 border-emerald-400/20 hover:border-emerald-300/45 shadow-[0_20px_50px_-22px_rgba(16,80,36,0.55)]',
     spotlight: 'rgba(52, 211, 153, 0.14)',
     topBar: 'from-emerald-400/80 via-forest-light to-purple-electric/75',
   },
   purple: {
     container:
-      'bg-gradient-to-br from-[#2B1D4A]/92 via-[#1B1932]/95 to-[#14171D]/96 border-purple-electric/35 hover:border-purple-light/65 shadow-[0_20px_50px_-20px_rgba(139,92,246,0.42)]',
+      'bg-gradient-to-br from-[#2B1D4A]/90 via-[#1B1932]/95 to-[#14171D]/95 border-purple-electric/35 hover:border-purple-light/65 shadow-[0_20px_50px_-20px_rgba(139,92,246,0.42)]',
     spotlight: 'rgba(167, 139, 250, 0.22)',
     topBar: 'from-purple-light via-purple-electric to-emerald-400/70',
   },
   charcoal: {
     container:
-      'bg-gradient-to-br from-[#1E2520]/94 via-[#161C18]/96 to-[#111512]/98 border-sand/15 hover:border-purple-electric/50 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.65)]',
+      'bg-gradient-to-br from-[#1E2520]/95 via-[#161C18]/95 to-[#111512]/95 border-sand/15 hover:border-purple-electric/50 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.65)]',
     spotlight: 'rgba(232, 220, 196, 0.13)',
     topBar: 'from-sand/75 via-purple-electric/75 to-forest-light/75',
   },

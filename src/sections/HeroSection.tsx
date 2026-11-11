@@ -264,37 +264,49 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               {/* Floating Skill Pill 1: Outer Top-Left Sky/Tree Zone (Never touches face/suit) */}
               <div
-                className="hidden sm:flex items-center space-x-2.5 px-3.5 py-2 rounded-2xl bg-[#142318]/90 backdrop-blur-md border border-purple-electric/50 shadow-purple-glow absolute -left-8 top-8 z-20 animate-subtle-float pointer-events-none"
+                className="hidden sm:flex items-center space-x-2.5 px-4 py-2.5 rounded-2xl bg-[#102015]/95 backdrop-blur-md border border-purple-electric/55 shadow-purple-glow absolute -left-8 top-8 z-20 animate-subtle-float pointer-events-none"
                 style={{ animationDuration: '5.5s' }}
               >
-                <span className="w-2 h-2 rounded-full bg-purple-electric shadow-[0_0_8px_#8B5CF6]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-purple-electric shadow-[0_0_8px_#8B5CF6] flex-shrink-0" />
                 <div className="leading-tight">
-                  <span className="font-display text-xs font-bold text-ivory block">Graphic Design</span>
-                  <span className="font-editorial text-[11px] text-sand/85">Brand & Posters</span>
+                  <span className="font-display text-xs sm:text-[13px] font-bold text-ivory block">
+                    Graphic Design
+                  </span>
+                  <span className="font-editorial text-xs text-sand/90">
+                    Visual &amp; Brand Design
+                  </span>
                 </div>
               </div>
 
               {/* Floating Skill Pill 2: Outer Lower-Left Foliage Margin */}
               <div
-                className="hidden sm:flex items-center space-x-2.5 px-3.5 py-2 rounded-2xl bg-[#142318]/90 backdrop-blur-md border border-emerald-400/45 shadow-lg absolute -left-9 bottom-20 z-20 animate-subtle-float pointer-events-none"
+                className="hidden sm:flex items-center space-x-2.5 px-4 py-2.5 rounded-2xl bg-[#102015]/95 backdrop-blur-md border border-emerald-400/50 shadow-xl absolute -left-9 bottom-20 z-20 animate-subtle-float pointer-events-none"
                 style={{ animationDuration: '6.4s', animationDelay: '0.8s' }}
               >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399] flex-shrink-0" />
                 <div className="leading-tight">
-                  <span className="font-display text-xs font-bold text-ivory block">EEE & PLC Controls</span>
-                  <span className="font-editorial text-[11px] text-sand/85">Schwing & CMRL</span>
+                  <span className="font-display text-xs sm:text-[13px] font-bold text-ivory block">
+                    Electrical Engineering
+                  </span>
+                  <span className="font-editorial text-xs text-sand/90">
+                    Power &amp; Core Systems
+                  </span>
                 </div>
               </div>
 
               {/* Floating Skill Pill 3: Bottom-Right Lower Margin (Responsive safe inside 390px on mobile) */}
               <div
-                className="flex items-center space-x-2.5 px-3.5 py-2 rounded-2xl bg-[#271C42]/92 backdrop-blur-md border border-purple-light/55 shadow-purple-glow absolute right-3 bottom-4 sm:-right-6 sm:bottom-8 z-20 animate-subtle-float pointer-events-none"
+                className="flex items-center space-x-2.5 px-4 py-2.5 rounded-2xl bg-[#1C1433]/95 backdrop-blur-md border border-purple-light/60 shadow-purple-glow absolute right-3 bottom-4 sm:-right-6 sm:bottom-8 z-20 animate-subtle-float pointer-events-none"
                 style={{ animationDuration: '5.8s', animationDelay: '1.4s' }}
               >
-                <span className="w-2 h-2 rounded-full bg-purple-light shadow-[0_0_8px_#A78BFA]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-purple-light shadow-[0_0_8px_#A78BFA] flex-shrink-0" />
                 <div className="leading-tight">
-                  <span className="font-display text-xs font-bold text-white block">AI & Vision Tech</span>
-                  <span className="font-editorial text-[11px] text-purple-light">OpenCV · FastAPI</span>
+                  <span className="font-display text-xs sm:text-[13px] font-bold text-ivory block">
+                    Software &amp; AI Tech
+                  </span>
+                  <span className="font-editorial text-xs text-sand-light">
+                    AI, Vision &amp; Web
+                  </span>
                 </div>
               </div>
             </div>

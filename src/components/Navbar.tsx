@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) =>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#122015]/92 backdrop-blur-md shadow-lg py-2.5 border-b border-white/10 text-ivory'
+          ? 'bg-[#122015]/95 backdrop-blur-md shadow-lg py-2.5 border-b border-white/10 text-ivory'
           : 'bg-gradient-to-b from-[#0E1B11]/85 to-transparent py-4 text-ivory'
       }`}
     >
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) =>
 
       {/* Mobile / Tablet Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#132217]/98 backdrop-blur-xl border-b border-white/10 px-4 py-5 space-y-5 shadow-2xl">
+        <div className="lg:hidden bg-[#132217]/95 backdrop-blur-xl border-b border-white/10 px-4 py-5 space-y-5 shadow-2xl">
           <div className="flex flex-col space-y-2">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-purple-light">
               Portfolio Track
