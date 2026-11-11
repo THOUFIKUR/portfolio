@@ -92,7 +92,7 @@ export const CreativeGallerySection: React.FC<CreativeGallerySectionProps> = ({
         {/* Expansive Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
           {filteredProjects.map((project, idx) => (
-            <ScrollReveal key={project.id} delayMs={(idx % 8) * 45} direction="up">
+            <ScrollReveal key={project.id} delayMs={(idx % 4) * 35} direction="up">
               <SpotlightCard
                 variant={idx % 3 === 0 ? 'forest' : idx % 3 === 1 ? 'charcoal' : 'purple'}
                 className="h-full group rounded-2xl"
@@ -110,7 +110,7 @@ export const CreativeGallerySection: React.FC<CreativeGallerySectionProps> = ({
                       <img
                         src={project.imageJpg}
                         alt={project.title}
-                        loading="lazy"
+                        decoding="async"
                         className="max-h-full max-w-full object-contain rounded shadow-lg group-hover:scale-[1.04] transition-transform duration-300 ease-out"
                       />
                     </picture>

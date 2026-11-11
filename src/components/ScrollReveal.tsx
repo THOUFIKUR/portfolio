@@ -43,16 +43,24 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       return;
     }
 
+    // Reveal immediately if already within the viewport on mount (e.g. direct hash navigation)
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting || entry.intersectionRect.height > 0) {
             setIsVisible(true);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -36px 0px' }
+      // Threshold 0 guarantees tall containers or small viewports always trigger upon entry
+      { threshold: 0, rootMargin: '60px 0px -10px 0px' }
     );
 
     observer.observe(node);

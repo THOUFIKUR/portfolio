@@ -3,7 +3,6 @@ import { Navbar, PortfolioTrack } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Lightbox } from './components/Lightbox';
 import { CaseStudyModal } from './components/CaseStudyModal';
-import { ScrollReveal } from './components/ScrollReveal';
 import { ScrollOrbField, ScrollPathDivider } from './components/ScrollOrbField';
 import { HeroSection } from './sections/HeroSection';
 import { SelectedCreativeSection } from './sections/SelectedCreativeSection';
@@ -117,76 +116,54 @@ export const App: React.FC = () => {
         />
 
         {/* PAGE 02: Selected Creative Work (Top 6 Flagship Projects) */}
-        <ScrollReveal>
-          <SelectedCreativeSection
-            featuredProjects={featuredProjects}
-            onOpenLightbox={(project) => setSelectedArtwork(project)}
-          />
-        </ScrollReveal>
+        <SelectedCreativeSection
+          featuredProjects={featuredProjects}
+          onOpenLightbox={(project) => setSelectedArtwork(project)}
+        />
 
         <ScrollPathDivider variant="dark" />
 
         {/* PAGE 04: Graphic Design Case Studies */}
-        <ScrollReveal>
-          <CaseStudiesSection
-            caseStudies={CASE_STUDIES}
-            onOpenCaseStudy={(study) => setSelectedCaseStudy(study)}
-          />
-        </ScrollReveal>
+        <CaseStudiesSection
+          caseStudies={CASE_STUDIES}
+          onOpenCaseStudy={(study) => setSelectedCaseStudy(study)}
+        />
 
         <ScrollPathDivider variant="dark" />
 
         {/* PAGE 03: Complete Graphic Design Archive (Remaining 38 Unique Non-Featured Works) */}
-        <ScrollReveal>
-          <CreativeGallerySection
-            projects={archiveProjects}
-            onOpenLightbox={(project) => setSelectedArtwork(project)}
-          />
-        </ScrollReveal>
+        <CreativeGallerySection
+          projects={archiveProjects}
+          onOpenLightbox={(project) => setSelectedArtwork(project)}
+        />
 
         <ScrollPathDivider variant="dark" />
 
         {/* PAGE 05: Electrical & Electronics Engineering Track (Deep Forest Green Atmospheric Band) */}
-        <ScrollReveal>
-          <EngineeringSection engineeringProjects={ENGINEERING_PROJECTS} />
-        </ScrollReveal>
+        <EngineeringSection engineeringProjects={ENGINEERING_PROJECTS} />
 
         <ScrollPathDivider variant="dark" />
 
         {/* PAGE 06: Software & Technology Track (With verified GitHub and live URLs) */}
-        <ScrollReveal>
-          <TechnologySection techProjects={TECHNOLOGY_PROJECTS} />
-        </ScrollReveal>
+        <TechnologySection techProjects={TECHNOLOGY_PROJECTS} />
 
         {/* PAGE 07: Experience & Internships (Schwing Stetter, CMRL) */}
-        <ScrollReveal>
-          <ExperienceSection />
-        </ScrollReveal>
+        <ExperienceSection />
 
         {/* PAGE 08: About Me (with Second Portrait) */}
-        <ScrollReveal>
-          <AboutSection />
-        </ScrollReveal>
+        <AboutSection />
 
         {/* PAGE 09: Skills & Toolkit */}
-        <ScrollReveal>
-          <SkillsSection />
-        </ScrollReveal>
+        <SkillsSection />
 
         {/* PAGE 10: Leadership & Activities (E-Cell, Science Club, BIS) */}
-        <ScrollReveal>
-          <LeadershipSection />
-        </ScrollReveal>
+        <LeadershipSection />
 
         {/* PAGE 11: Achievements & Verified Resume Integration */}
-        <ScrollReveal>
-          <AchievementsSection />
-        </ScrollReveal>
+        <AchievementsSection />
 
         {/* PAGE 12: Contact Section (Verified External Links) */}
-        <ScrollReveal>
-          <ContactSection />
-        </ScrollReveal>
+        <ContactSection />
       </main>
 
       {/* Global Footer */}
