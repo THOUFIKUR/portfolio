@@ -3,6 +3,7 @@ import { Navbar, PortfolioTrack } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Lightbox } from './components/Lightbox';
 import { CaseStudyModal } from './components/CaseStudyModal';
+import { ScrollCinematicIntro } from './components/ScrollCinematicIntro';
 import { ScrollOrbField, ScrollPathDivider } from './components/ScrollOrbField';
 import { HeroSection } from './sections/HeroSection';
 import { SelectedCreativeSection } from './sections/SelectedCreativeSection';
@@ -93,7 +94,8 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#102015] text-ivory flex flex-col font-sans selection:bg-purple-electric selection:text-white relative overflow-x-clip">
+    <ScrollCinematicIntro>
+      <div className="min-h-screen bg-[#102015] text-ivory flex flex-col font-sans selection:bg-purple-electric selection:text-white relative overflow-x-clip">
       {/* Ambient Scroll-Driven Orb Field */}
       <ScrollOrbField />
 
@@ -183,7 +185,8 @@ export const App: React.FC = () => {
         onClose={() => setSelectedCaseStudy(null)}
         onOpenProjectById={handleOpenArtworkById}
       />
-    </div>
+      </div>
+    </ScrollCinematicIntro>
   );
 };
 

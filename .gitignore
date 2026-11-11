@@ -4,8 +4,9 @@ dist/
 *.local
 *.log
 
-# Raw Source PDFs & Extraction Workspaces (keep public/resume/*.pdf tracked)
+# Raw Source PDFs, Source Videos & Extraction Workspaces (keep public/ tracked)
 /*.pdf
+/*.mp4
 extracted_artwork/
 extracted_pages/
 _backup_pre_v2/
