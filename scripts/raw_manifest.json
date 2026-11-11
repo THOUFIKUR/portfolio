@@ -1,0 +1,713 @@
+[
+  {
+    "page": 1,
+    "filename": "art_p01_3000x1687.jpeg",
+    "width": 3000,
+    "height": 1687,
+    "aspect": 1.78,
+    "md5": "7cc5398bb0776f2396284a15a026737b",
+    "format": "jpeg"
+  },
+  {
+    "page": 2,
+    "filename": "art_p02_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "283aa704bfa822ab848f160100662794",
+    "format": "jpeg"
+  },
+  {
+    "page": 3,
+    "filename": "art_p03_2619x1465.jpeg",
+    "width": 2619,
+    "height": 1465,
+    "aspect": 1.79,
+    "md5": "61c30475cec9b10d67908324e9ea6add",
+    "format": "jpeg"
+  },
+  {
+    "page": 4,
+    "filename": "art_p04_2606x1473.jpeg",
+    "width": 2606,
+    "height": 1473,
+    "aspect": 1.77,
+    "md5": "78d58f3b496a494246aca8143a6415b4",
+    "format": "jpeg"
+  },
+  {
+    "page": 5,
+    "filename": "art_p05_1696x2263.jpeg",
+    "width": 1696,
+    "height": 2263,
+    "aspect": 0.75,
+    "md5": "694637e50ba301a751acfda1c276a726",
+    "format": "jpeg"
+  },
+  {
+    "page": 6,
+    "filename": "art_p06_1694x2400.jpeg",
+    "width": 1694,
+    "height": 2400,
+    "aspect": 0.71,
+    "md5": "7e12cc01a4aba578e9b8121c7703a8f5",
+    "format": "jpeg"
+  },
+  {
+    "page": 7,
+    "filename": "art_p07_2604x1473.jpeg",
+    "width": 2604,
+    "height": 1473,
+    "aspect": 1.77,
+    "md5": "b03fcba15781b3a2a5b41cf69be0dca9",
+    "format": "jpeg"
+  },
+  {
+    "page": 8,
+    "filename": "art_p08_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "0c2a0f61f47a3a55ca6693048d38cb71",
+    "format": "jpeg"
+  },
+  {
+    "page": 9,
+    "filename": "art_p09_2422x800.jpeg",
+    "width": 2422,
+    "height": 800,
+    "aspect": 3.03,
+    "md5": "3f26cf2a7b9977f408c02f9bb904171b",
+    "format": "jpeg"
+  },
+  {
+    "page": 10,
+    "filename": "art_p10_2270x800.jpeg",
+    "width": 2270,
+    "height": 800,
+    "aspect": 2.84,
+    "md5": "89e36aa28218587e934ef8dda715c815",
+    "format": "jpeg"
+  },
+  {
+    "page": 11,
+    "filename": "art_p11_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "5e4b24f9d444049f3ef64b583815710b",
+    "format": "jpeg"
+  },
+  {
+    "page": 12,
+    "filename": "art_p12_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "c1b5b8437b7d8b9784efcbd14758366f",
+    "format": "jpeg"
+  },
+  {
+    "page": 13,
+    "filename": "art_p13_1752x2190.jpeg",
+    "width": 1752,
+    "height": 2190,
+    "aspect": 0.8,
+    "md5": "2091b7942e5e9570c7942032277fd92a",
+    "format": "jpeg"
+  },
+  {
+    "page": 14,
+    "filename": "art_p14_2592x1481.jpeg",
+    "width": 2592,
+    "height": 1481,
+    "aspect": 1.75,
+    "md5": "6a08b4db62a1738f95d0c9318ec3b431",
+    "format": "jpeg"
+  },
+  {
+    "page": 15,
+    "filename": "art_p15_1687x1687.jpeg",
+    "width": 1687,
+    "height": 1687,
+    "aspect": 1.0,
+    "md5": "827b70db151c820318afa3840a0a3782",
+    "format": "jpeg"
+  },
+  {
+    "page": 16,
+    "filename": "art_p16_1696x2263.jpeg",
+    "width": 1696,
+    "height": 2263,
+    "aspect": 0.75,
+    "md5": "f05c164aae535873cd559d79734119be",
+    "format": "jpeg"
+  },
+  {
+    "page": 17,
+    "filename": "art_p17_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "43cfa7a3d8c126402a10400905ef7911",
+    "format": "jpeg"
+  },
+  {
+    "page": 18,
+    "filename": "art_p18_2350x1650.jpeg",
+    "width": 2350,
+    "height": 1650,
+    "aspect": 1.42,
+    "md5": "887ba1e8905628eb0132c868a9f0ef3a",
+    "format": "jpeg"
+  },
+  {
+    "page": 19,
+    "filename": "art_p19_2350x1650.jpeg",
+    "width": 2350,
+    "height": 1650,
+    "aspect": 1.42,
+    "md5": "8bfd8d1a8d2f01cdd0daebd118935561",
+    "format": "jpeg"
+  },
+  {
+    "page": 20,
+    "filename": "art_p20_2270x800.jpeg",
+    "width": 2270,
+    "height": 800,
+    "aspect": 2.84,
+    "md5": "1c7e60e7a8497c165fadca2ce21499fc",
+    "format": "jpeg"
+  },
+  {
+    "page": 21,
+    "filename": "art_p21_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "d1531c26ab16e537c2d6596e3fa5fde0",
+    "format": "jpeg"
+  },
+  {
+    "page": 22,
+    "filename": "art_p22_2350x1650.jpeg",
+    "width": 2350,
+    "height": 1650,
+    "aspect": 1.42,
+    "md5": "b0864123cb364f6d58384b6f39a5c533",
+    "format": "jpeg"
+  },
+  {
+    "page": 23,
+    "filename": "art_p23_2350x1675.jpeg",
+    "width": 2350,
+    "height": 1675,
+    "aspect": 1.4,
+    "md5": "19d14321b1c34bbebb6f9b58eb42864b",
+    "format": "jpeg"
+  },
+  {
+    "page": 24,
+    "filename": "art_p24_2350x1650.jpeg",
+    "width": 2350,
+    "height": 1650,
+    "aspect": 1.42,
+    "md5": "2bade18a26ad1ec983e39dd4b52ec5df",
+    "format": "jpeg"
+  },
+  {
+    "page": 25,
+    "filename": "art_p25_1240x1754.jpeg",
+    "width": 1240,
+    "height": 1754,
+    "aspect": 0.71,
+    "md5": "4e0df31eea2ceefa3f52db1b9972d159",
+    "format": "jpeg"
+  },
+  {
+    "page": 26,
+    "filename": "art_p26_1975x1975.jpeg",
+    "width": 1975,
+    "height": 1975,
+    "aspect": 1.0,
+    "md5": "43bb81ecaac9904390a5bd76fe8ea1b1",
+    "format": "jpeg"
+  },
+  {
+    "page": 27,
+    "filename": "art_p27_1128x800.jpeg",
+    "width": 1128,
+    "height": 800,
+    "aspect": 1.41,
+    "md5": "f8ac16d9c7db8f8cf34dacb9cc0256d0",
+    "format": "jpeg"
+  },
+  {
+    "page": 28,
+    "filename": "art_p28_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "ae0fe2d4fdb641d2b3cac36bc73f4706",
+    "format": "jpeg"
+  },
+  {
+    "page": 29,
+    "filename": "art_p29_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "b67b26de09b87a88433bea588b351074",
+    "format": "jpeg"
+  },
+  {
+    "page": 30,
+    "filename": "art_p30_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "cfd4a7954f0e65ef641c5d1823b1a43e",
+    "format": "jpeg"
+  },
+  {
+    "page": 31,
+    "filename": "art_p31_2479x3506.jpeg",
+    "width": 2479,
+    "height": 3506,
+    "aspect": 0.71,
+    "md5": "0fa3bb74e89098233807b13bb92985bf",
+    "format": "jpeg"
+  },
+  {
+    "page": 32,
+    "filename": "art_p32_873x1240.jpeg",
+    "width": 873,
+    "height": 1240,
+    "aspect": 0.7,
+    "md5": "7a5d17938a726e6a8be4388b4ccc3af6",
+    "format": "jpeg"
+  },
+  {
+    "page": 33,
+    "filename": "art_p33_1240x1754.jpeg",
+    "width": 1240,
+    "height": 1754,
+    "aspect": 0.71,
+    "md5": "743c51441dcb8573f1f3ec137d922e87",
+    "format": "jpeg"
+  },
+  {
+    "page": 34,
+    "filename": "art_p34_1128x800.jpeg",
+    "width": 1128,
+    "height": 800,
+    "aspect": 1.41,
+    "md5": "5f17695f41f41ad307fc642cd63e4137",
+    "format": "jpeg"
+  },
+  {
+    "page": 35,
+    "filename": "art_p35_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "e39912b374f6a1630ed999248ea6ead8",
+    "format": "jpeg"
+  },
+  {
+    "page": 36,
+    "filename": "art_p36_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "9485fda72b3b57562c7bd2669d7d960a",
+    "format": "jpeg"
+  },
+  {
+    "page": 37,
+    "filename": "art_p37_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "64b896f1193dbac4fe22ee2ada178550",
+    "format": "jpeg"
+  },
+  {
+    "page": 38,
+    "filename": "art_p38_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "fff607da862c63f0ab60ea49274a0c1f",
+    "format": "jpeg"
+  },
+  {
+    "page": 39,
+    "filename": "art_p39_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "aac99d73b767e4603928c966815f0487",
+    "format": "jpeg"
+  },
+  {
+    "page": 40,
+    "filename": "art_p40_3000x1687.jpeg",
+    "width": 3000,
+    "height": 1687,
+    "aspect": 1.78,
+    "md5": "e285ceefbff3aee9191d40d4d53cfd5e",
+    "format": "jpeg"
+  },
+  {
+    "page": 41,
+    "filename": "art_p41_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "1d76709ad15be9e038a71810fa617916",
+    "format": "jpeg"
+  },
+  {
+    "page": 42,
+    "filename": "art_p42_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "e084ff5e450a30d224ee565b38b1e14b",
+    "format": "jpeg"
+  },
+  {
+    "page": 43,
+    "filename": "art_p43_1696x2263.jpeg",
+    "width": 1696,
+    "height": 2263,
+    "aspect": 0.75,
+    "md5": "c0dc03af23597caefbd7aa8c719ce9e6",
+    "format": "jpeg"
+  },
+  {
+    "page": 44,
+    "filename": "art_p44_1919x2400.jpeg",
+    "width": 1919,
+    "height": 2400,
+    "aspect": 0.8,
+    "md5": "8ee5e14611ee80ec274a09a2bcacf039",
+    "format": "jpeg"
+  },
+  {
+    "page": 45,
+    "filename": "art_p45_1696x2263.jpeg",
+    "width": 1696,
+    "height": 2263,
+    "aspect": 0.75,
+    "md5": "9337d1793c2ee650517d6c82da81c28b",
+    "format": "jpeg"
+  },
+  {
+    "page": 46,
+    "filename": "art_p46_4000x1999.jpeg",
+    "width": 4000,
+    "height": 1999,
+    "aspect": 2.0,
+    "md5": "8103e600f6c1a13abc48bf0ca852249d",
+    "format": "jpeg"
+  },
+  {
+    "page": 47,
+    "filename": "art_p47_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "0781653daae106beb3101f619a23335c",
+    "format": "jpeg"
+  },
+  {
+    "page": 48,
+    "filename": "art_p48_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "7e51d99da335e39c701834443c82acff",
+    "format": "jpeg"
+  },
+  {
+    "page": 49,
+    "filename": "art_p49_1800x2400.jpeg",
+    "width": 1800,
+    "height": 2400,
+    "aspect": 0.75,
+    "md5": "c1217cd6a9d55bac71130a47b27d0c15",
+    "format": "jpeg"
+  },
+  {
+    "page": 50,
+    "filename": "art_p50_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "c4b191a80be6ae6355764172e385b9a0",
+    "format": "jpeg"
+  },
+  {
+    "page": 51,
+    "filename": "art_p51_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "6eab474cc76536796574f72f2883bbd2",
+    "format": "jpeg"
+  },
+  {
+    "page": 52,
+    "filename": "art_p52_1687x1687.jpeg",
+    "width": 1687,
+    "height": 1687,
+    "aspect": 1.0,
+    "md5": "b4e0bf4b1882e410f6fc98a1052ead87",
+    "format": "jpeg"
+  },
+  {
+    "page": 53,
+    "filename": "art_p53_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "124a85adf0d7d1dfce428bf18993db57",
+    "format": "jpeg"
+  },
+  {
+    "page": 54,
+    "filename": "art_p54_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "528eaaa158a39ca9ba7daf53a2d79fa1",
+    "format": "jpeg"
+  },
+  {
+    "page": 55,
+    "filename": "art_p55_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "5e92b66d21b6fdca6ec7db5443b19fdb",
+    "format": "jpeg"
+  },
+  {
+    "page": 56,
+    "filename": "art_p56_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "41ef7cef8bcb22dbd60c3f0657423bcd",
+    "format": "jpeg"
+  },
+  {
+    "page": 57,
+    "filename": "art_p57_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "902a618dbe97cf68bb76631d81106aa3",
+    "format": "jpeg"
+  },
+  {
+    "page": 58,
+    "filename": "art_p58_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "04bbaac306cedfe6b661f9120384bf7e",
+    "format": "jpeg"
+  },
+  {
+    "page": 59,
+    "filename": "art_p59_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "065959d772ff964cc4eba1dd941d023d",
+    "format": "jpeg"
+  },
+  {
+    "page": 60,
+    "filename": "art_p60_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "30c1db607c69fd2207a9e42c3887e7c6",
+    "format": "jpeg"
+  },
+  {
+    "page": 61,
+    "filename": "art_p61_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "902a618dbe97cf68bb76631d81106aa3",
+    "format": "jpeg"
+  },
+  {
+    "page": 62,
+    "filename": "art_p62_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "ad851b83af833d804443b5aabaf0e561",
+    "format": "jpeg"
+  },
+  {
+    "page": 63,
+    "filename": "art_p63_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "671a1721f5bff4ba97b1ea0f207500ab",
+    "format": "jpeg"
+  },
+  {
+    "page": 64,
+    "filename": "art_p64_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "da64950d7acad91e6cb58ab65f52336d",
+    "format": "jpeg"
+  },
+  {
+    "page": 65,
+    "filename": "art_p65_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "d0b26773fbb1a733a687aa1de3034c05",
+    "format": "jpeg"
+  },
+  {
+    "page": 66,
+    "filename": "art_p66_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "164ce441b5c3c5c22fd03b5f389a052a",
+    "format": "jpeg"
+  },
+  {
+    "page": 67,
+    "filename": "art_p67_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "85f94891c38867d9b882dce6a269d7de",
+    "format": "jpeg"
+  },
+  {
+    "page": 68,
+    "filename": "art_p68_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "92e94b25ececaaa5e12479bd9d74d97b",
+    "format": "jpeg"
+  },
+  {
+    "page": 69,
+    "filename": "art_p69_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "bdeab0bbad8a206d9e32e151d567aaa3",
+    "format": "jpeg"
+  },
+  {
+    "page": 70,
+    "filename": "art_p70_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "233d37f1c7a6b3458752a1707e1dee0e",
+    "format": "jpeg"
+  },
+  {
+    "page": 71,
+    "filename": "art_p71_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "71e4c8c2f2d03bac0c55b7eed765a90d",
+    "format": "jpeg"
+  },
+  {
+    "page": 72,
+    "filename": "art_p72_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "7a08d481192ee2ac0ad72be51ff2535e",
+    "format": "jpeg"
+  },
+  {
+    "page": 73,
+    "filename": "art_p73_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "af4c008a0b7eb16aad7a6a15484d25ed",
+    "format": "jpeg"
+  },
+  {
+    "page": 74,
+    "filename": "art_p74_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "ba9c08071538248f8f5cf8ee5722b63b",
+    "format": "jpeg"
+  },
+  {
+    "page": 75,
+    "filename": "art_p75_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "88081ae5da3c7dccbccbccf1b0f2e552",
+    "format": "jpeg"
+  },
+  {
+    "page": 76,
+    "filename": "art_p76_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "42bca06bfa3e6dc3ded413ba3a3798be",
+    "format": "jpeg"
+  },
+  {
+    "page": 77,
+    "filename": "art_p77_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "a5c1a9bcc0e4a7167951aa2761ee309b",
+    "format": "jpeg"
+  },
+  {
+    "page": 78,
+    "filename": "art_p78_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "ca86772690ab6013b3bd3bd429bda26a",
+    "format": "jpeg"
+  },
+  {
+    "page": 79,
+    "filename": "art_p79_1687x2108.jpeg",
+    "width": 1687,
+    "height": 2108,
+    "aspect": 0.8,
+    "md5": "9815b2286ea6a9286b4666a066c11bc9",
+    "format": "jpeg"
+  }
+]

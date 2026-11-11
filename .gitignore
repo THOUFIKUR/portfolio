@@ -1,0 +1,16 @@
+# Dependencies & Build Artifacts
+node_modules/
+dist/
+*.local
+*.log
+
+# Raw Source PDFs & Extraction Workspaces (keep public/resume/*.pdf tracked)
+/*.pdf
+extracted_artwork/
+extracted_pages/
+_backup_pre_v2/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+
