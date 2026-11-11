@@ -12,13 +12,17 @@ interface ScrollCinematicIntroProps {
 
 const DEFAULT_VIDEO_SRC = '/videos/portfolio-intro.mp4';
 const VIDEO_PHASE_END = 0.78;
-const FRAME_STEP_SEC = 1 / 24;
+const FRAME_STEP_SEC = 1 / 30;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 const getScrollTrackHeight = () =>
-  typeof window !== 'undefined' && window.innerWidth < 768 ? 1350 : 2100;
+  typeof window !== 'undefined' && window.innerWidth < 768 ? 1400 : 2100;
+
+const MemoizedSiteContent = React.memo<{ children: React.ReactNode }>(({ children }) => (
+  <>{children}</>
+));
 
 export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   children,
@@ -33,6 +37,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const skippedRef = useRef(false);
+  const releasedRef = useRef(false);
 
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() => {
     if (typeof window !== 'undefined' && window.matchMedia) {
@@ -43,7 +48,6 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
 
   const [introFailed, setIntroFailed] = useState(false);
   const [skipState, setSkipState] = useState<'active' | 'fading' | 'done'>('active');
-  const [introReleased, setIntroReleased] = useState(false);
   const [scrollTrackHeight, setScrollTrackHeight] = useState<number>(getScrollTrackHeight);
 
   // Sync reduced-motion media listener
@@ -57,7 +61,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
 
   const introBypassed = prefersReducedMotion || introFailed || skipState === 'done';
 
-  // Keep reserved slot height synced to the website's natural height so scrollY never jumps
+  // Keep reserved slot height synced to the website's natural height without scroll re-renders
   useEffect(() => {
     if (introBypassed) return;
     const slotEl = siteSlotRef.current;
@@ -65,7 +69,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
     if (!slotEl || !siteEl) return;
 
     const syncSlotHeight = () => {
-      if (!introReleased && siteEl.offsetHeight > 0) {
+      if (!releasedRef.current && !skippedRef.current && siteEl.offsetHeight > 0) {
         slotEl.style.minHeight = `${siteEl.offsetHeight}px`;
       } else {
         slotEl.style.minHeight = '';
@@ -78,7 +82,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
     const ro = new ResizeObserver(syncSlotHeight);
     ro.observe(siteEl);
     return () => ro.disconnect();
-  }, [introBypassed, introReleased]);
+  }, [introBypassed]);
 
   // Responsive scroll distance updates on resize / orientation change
   useEffect(() => {
@@ -94,13 +98,17 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
     };
   }, []);
 
-  // GSAP ScrollTrigger + silky rAF damping + event-driven seek pipeline
+  // GSAP ScrollTrigger + zero-react-render rAF smoothing + fast seek pipeline
   useEffect(() => {
     if (introBypassed) {
       if (siteLayerRef.current) {
+        siteLayerRef.current.classList.remove('sci-site-layer--pinned');
         siteLayerRef.current.style.opacity = '';
         siteLayerRef.current.style.pointerEvents = '';
         siteLayerRef.current.style.visibility = '';
+      }
+      if (siteSlotRef.current) {
+        siteSlotRef.current.style.minHeight = '';
       }
       if (scrollTriggerRef.current) {
         scrollTriggerRef.current.kill(true);
@@ -111,12 +119,13 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
 
     const rootEl = rootRef.current;
     const spacerEl = spacerRef.current;
+    const slotEl = siteSlotRef.current;
     const siteEl = siteLayerRef.current;
     const overlayEl = videoOverlayRef.current;
     const cueEl = scrollCueRef.current;
     const videoEl = videoRef.current;
 
-    if (!rootEl || !spacerEl || !siteEl || !overlayEl || !videoEl) return;
+    if (!rootEl || !spacerEl || !slotEl || !siteEl || !overlayEl || !videoEl) return;
 
     let duration =
       Number.isFinite(videoEl.duration) && videoEl.duration > 0 ? videoEl.duration : 0;
@@ -132,19 +141,32 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
 
     const getSafeEndTime = (rawDuration: number) => Math.max(rawDuration - 0.04, 0.05);
 
+    const setReleasedDOM = (released: boolean) => {
+      if (releasedRef.current === released) return;
+      releasedRef.current = released;
+      siteEl.classList.toggle('sci-site-layer--pinned', !released);
+      if (released) {
+        slotEl.style.minHeight = '';
+      } else if (siteEl.offsetHeight > 0) {
+        slotEl.style.minHeight = `${siteEl.offsetHeight}px`;
+      }
+    };
+
     const trySeekToDesired = () => {
-      if (disposed || !videoEl || duration <= 0 || videoEl.readyState < 1) return;
+      if (disposed || skippedRef.current || !videoEl || duration <= 0 || videoEl.readyState < 1) {
+        return;
+      }
 
       const safeEnd = getSafeEndTime(duration);
       const target = clamp(desiredSeekTime, 0, safeEnd);
       const diff = Math.abs(videoEl.currentTime - target);
       const atBoundary = target <= 0.015 || target >= safeEnd - 0.015;
-      const minDelta = atBoundary ? 0.005 : FRAME_STEP_SEC * 0.6;
+      const minDelta = atBoundary ? 0.004 : FRAME_STEP_SEC * 0.45;
 
       if (diff <= minDelta) return;
 
       const now = performance.now();
-      if (seekingInFlight && videoEl.seeking && now - lastSeekIssuedAt < 140) {
+      if (seekingInFlight && videoEl.seeking && now - lastSeekIssuedAt < 100) {
         return;
       }
 
@@ -159,6 +181,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
 
     const renderVisualState = (p: number) => {
       if (disposed || skippedRef.current) return;
+
       if (!videoEl.paused) {
         videoEl.pause();
       }
@@ -177,7 +200,6 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
         p <= VIDEO_PHASE_END
           ? 0
           : clamp((p - VIDEO_PHASE_END) / (1 - VIDEO_PHASE_END), 0, 1);
-      // Smooth sine-eased crossfade curve for filmic transition
       const fadeNorm = rawFade * rawFade * (3 - 2 * rawFade);
       const videoAlpha = 1 - fadeNorm;
 
@@ -186,18 +208,21 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
       overlayEl.style.visibility = videoAlpha <= 0.005 ? 'hidden' : 'visible';
 
       if (p >= 0.998) {
+        setReleasedDOM(true);
         siteEl.style.opacity = '';
         siteEl.style.visibility = 'visible';
         siteEl.style.pointerEvents = 'auto';
-      } else if (fadeNorm <= 0.001) {
-        // Hide off-phase DOM compositing while video covers 100% of screen
-        siteEl.style.opacity = '0';
-        siteEl.style.visibility = 'hidden';
-        siteEl.style.pointerEvents = 'none';
       } else {
-        siteEl.style.visibility = 'visible';
-        siteEl.style.opacity = String(fadeNorm);
-        siteEl.style.pointerEvents = fadeNorm > 0.35 ? 'auto' : 'none';
+        setReleasedDOM(false);
+        if (fadeNorm <= 0.001) {
+          siteEl.style.opacity = '0';
+          siteEl.style.visibility = 'hidden';
+          siteEl.style.pointerEvents = 'none';
+        } else {
+          siteEl.style.visibility = 'visible';
+          siteEl.style.opacity = String(fadeNorm);
+          siteEl.style.pointerEvents = fadeNorm > 0.35 ? 'auto' : 'none';
+        }
       }
     };
 
@@ -209,21 +234,20 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
       lastFrameTime = now;
 
       const delta = targetProgress - smoothProgress;
-      if (Math.abs(delta) < 0.0005) {
+      if (Math.abs(delta) < 0.0004) {
         smoothProgress = targetProgress;
         renderVisualState(smoothProgress);
         return;
       }
 
-      // Snappy frame-rate-independent damping (~18 rad/s) keeps mouse wheels silky without lag
-      const factor = 1 - Math.exp(-18 * dt);
+      const factor = 1 - Math.exp(-24 * dt);
       smoothProgress += delta * factor;
       renderVisualState(smoothProgress);
       rafId = window.requestAnimationFrame(tickSmoothing);
     };
 
     const ensureLoopRunning = () => {
-      if (rafId === null && !disposed) {
+      if (rafId === null && !disposed && !skippedRef.current) {
         lastFrameTime = performance.now();
         rafId = window.requestAnimationFrame(tickSmoothing);
       }
@@ -280,6 +304,11 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
     }
 
     // Initial visual setup at progress = 0
+    releasedRef.current = false;
+    siteEl.classList.add('sci-site-layer--pinned');
+    if (siteEl.offsetHeight > 0) {
+      slotEl.style.minHeight = `${siteEl.offsetHeight}px`;
+    }
     overlayEl.style.opacity = '1';
     overlayEl.style.pointerEvents = 'auto';
     overlayEl.style.visibility = 'visible';
@@ -297,13 +326,6 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
         onUpdate: (self) => {
           if (skippedRef.current) return;
           targetProgress = clamp(self.progress, 0, 1);
-
-          if (targetProgress >= 0.998) {
-            setIntroReleased((prev) => (prev ? prev : true));
-          } else {
-            setIntroReleased((prev) => (prev ? false : prev));
-          }
-
           ensureLoopRunning();
         },
         onLeave: () => {
@@ -311,12 +333,11 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
           targetProgress = 1;
           smoothProgress = 1;
           renderVisualState(1);
-          setIntroReleased(true);
         },
         onEnterBack: () => {
           if (skippedRef.current) return;
           overlayEl.style.visibility = 'visible';
-          setIntroReleased(false);
+          setReleasedDOM(false);
         },
       });
 
@@ -342,15 +363,20 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   const handleSkipIntro = () => {
     if (skipState !== 'active') return;
     skippedRef.current = true;
+    releasedRef.current = true;
     setSkipState('fading');
-    setIntroReleased(true);
 
     if (scrollTriggerRef.current) {
       scrollTriggerRef.current.kill(true);
       scrollTriggerRef.current = null;
     }
 
+    if (siteSlotRef.current) {
+      siteSlotRef.current.style.minHeight = '';
+    }
+
     if (siteLayerRef.current) {
+      siteLayerRef.current.classList.remove('sci-site-layer--pinned');
       siteLayerRef.current.style.visibility = 'visible';
       siteLayerRef.current.style.opacity = '1';
       siteLayerRef.current.style.pointerEvents = 'auto';
@@ -370,13 +396,12 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   if (prefersReducedMotion) {
     return (
       <div className="sci-site-layer sci-reduced-enter">
-        {children}
+        <MemoizedSiteContent>{children}</MemoizedSiteContent>
       </div>
     );
   }
 
   const showSpacer = !introBypassed && skipState === 'active';
-  const pinSiteBehindIntro = !introBypassed && !introReleased && skipState === 'active';
 
   return (
     <div ref={rootRef} className="sci-root">
@@ -390,11 +415,8 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
       )}
 
       <div ref={siteSlotRef} className="sci-site-slot">
-        <div
-          ref={siteLayerRef}
-          className={`sci-site-layer ${pinSiteBehindIntro ? 'sci-site-layer--pinned' : ''}`}
-        >
-          {children}
+        <div ref={siteLayerRef} className="sci-site-layer">
+          <MemoizedSiteContent>{children}</MemoizedSiteContent>
         </div>
       </div>
 
