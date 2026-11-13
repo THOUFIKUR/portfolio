@@ -3,6 +3,7 @@ import { Briefcase, MapPin, CheckCircle2, Calendar, ArrowUpRight } from 'lucide-
 import { INTERNSHIPS_DATA } from '../data/resumeData';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
 export const ExperienceSection: React.FC = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -36,9 +37,10 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section
       id="experience"
-      className="py-24 bg-[#112016]/80 text-ivory border-t border-white/10 relative z-10"
+      className="py-24 bg-[#112016]/80 text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionAtmosphere variant="left-glow" accentRing={true} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <ScrollReveal direction="up" className="space-y-3 mb-10 max-w-2xl">
           <div className="inline-flex items-center space-x-2 text-xs font-display font-semibold tracking-wider uppercase text-purple-light bg-white/10 px-4 py-1.5 rounded-full border border-purple-electric/35 backdrop-blur-md">

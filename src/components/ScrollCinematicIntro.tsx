@@ -38,6 +38,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const skippedRef = useRef(false);
   const releasedRef = useRef(false);
+  const completedRef = useRef(false);
 
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() => {
     if (typeof window !== 'undefined' && window.matchMedia) {
@@ -47,6 +48,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   });
 
   const [introFailed, setIntroFailed] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(false);
   const [skipState, setSkipState] = useState<'active' | 'fading' | 'done'>('active');
   const [scrollTrackHeight, setScrollTrackHeight] = useState<number>(getScrollTrackHeight);
 
@@ -59,7 +61,7 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  const introBypassed = prefersReducedMotion || introFailed || skipState === 'done';
+  const introBypassed = prefersReducedMotion || introFailed || skipState === 'done' || introCompleted;
 
   // Keep reserved slot height synced to the website's natural height without scroll re-renders
   useEffect(() => {
@@ -179,8 +181,58 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
       }
     };
 
+    const completeIntroAndResetScroll = () => {
+      if (completedRef.current || disposed) return;
+      completedRef.current = true;
+      releasedRef.current = true;
+      skippedRef.current = true;
+
+      // 1. Kill the ScrollTrigger immediately so scroll changes don't fire trigger callbacks
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill(true);
+        scrollTriggerRef.current = null;
+      }
+
+      // 2. Hide video overlay, release pin, collapse spacer
+      if (overlayEl) {
+        overlayEl.style.opacity = '0';
+        overlayEl.style.visibility = 'hidden';
+        overlayEl.style.pointerEvents = 'none';
+        overlayEl.style.display = 'none';
+      }
+
+      if (siteEl) {
+        siteEl.classList.remove('sci-site-layer--pinned');
+        siteEl.style.opacity = '1';
+        siteEl.style.visibility = 'visible';
+        siteEl.style.pointerEvents = 'auto';
+      }
+
+      if (slotEl) {
+        slotEl.style.minHeight = '';
+      }
+
+      if (spacerEl) {
+        spacerEl.style.height = '0px';
+        spacerEl.style.display = 'none';
+      }
+
+      // 3. Reset document scroll to absolute top
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+
+      // 4. Update React state
+      setIntroCompleted(true);
+      setSkipState('done');
+
+      // 5. In next animation frame, ensure scroll is 0 and refresh ScrollTrigger for the page
+      window.requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        ScrollTrigger.refresh();
+      });
+    };
+
     const renderVisualState = (p: number) => {
-      if (disposed || skippedRef.current) return;
+      if (disposed || skippedRef.current || completedRef.current) return;
 
       if (!videoEl.paused) {
         videoEl.pause();
@@ -207,11 +259,14 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
       overlayEl.style.pointerEvents = fadeNorm > 0.35 ? 'none' : 'auto';
       overlayEl.style.visibility = videoAlpha <= 0.005 ? 'hidden' : 'visible';
 
-      if (p >= 0.998) {
-        setReleasedDOM(true);
-        siteEl.style.opacity = '';
+      if (p >= 0.995 || fadeNorm >= 0.99) {
+        siteEl.style.opacity = '1';
         siteEl.style.visibility = 'visible';
         siteEl.style.pointerEvents = 'auto';
+        overlayEl.style.opacity = '0';
+        overlayEl.style.visibility = 'hidden';
+        completeIntroAndResetScroll();
+        return;
       } else {
         setReleasedDOM(false);
         if (fadeNorm <= 0.001) {
@@ -324,20 +379,15 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
         scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          if (skippedRef.current) return;
+          if (skippedRef.current || completedRef.current) return;
           targetProgress = clamp(self.progress, 0, 1);
           ensureLoopRunning();
         },
         onLeave: () => {
-          if (skippedRef.current) return;
+          if (skippedRef.current || completedRef.current) return;
           targetProgress = 1;
           smoothProgress = 1;
-          renderVisualState(1);
-        },
-        onEnterBack: () => {
-          if (skippedRef.current) return;
-          overlayEl.style.visibility = 'visible';
-          setReleasedDOM(false);
+          completeIntroAndResetScroll();
         },
       });
 
@@ -361,36 +411,53 @@ export const ScrollCinematicIntro: React.FC<ScrollCinematicIntroProps> = ({
   }, [introBypassed, videoSrc, scrollTrackHeight]);
 
   const handleSkipIntro = () => {
-    if (skipState !== 'active') return;
-    skippedRef.current = true;
+    if (completedRef.current || introCompleted) return;
+    completedRef.current = true;
     releasedRef.current = true;
-    setSkipState('fading');
+    skippedRef.current = true;
 
     if (scrollTriggerRef.current) {
       scrollTriggerRef.current.kill(true);
       scrollTriggerRef.current = null;
     }
 
-    if (siteSlotRef.current) {
-      siteSlotRef.current.style.minHeight = '';
+    const overlayEl = videoOverlayRef.current;
+    const siteEl = siteLayerRef.current;
+    const slotEl = siteSlotRef.current;
+    const spacerEl = spacerRef.current;
+
+    if (overlayEl) {
+      overlayEl.style.opacity = '0';
+      overlayEl.style.visibility = 'hidden';
+      overlayEl.style.pointerEvents = 'none';
+      overlayEl.style.display = 'none';
     }
 
-    if (siteLayerRef.current) {
-      siteLayerRef.current.classList.remove('sci-site-layer--pinned');
-      siteLayerRef.current.style.visibility = 'visible';
-      siteLayerRef.current.style.opacity = '1';
-      siteLayerRef.current.style.pointerEvents = 'auto';
+    if (siteEl) {
+      siteEl.classList.remove('sci-site-layer--pinned');
+      siteEl.style.visibility = 'visible';
+      siteEl.style.opacity = '1';
+      siteEl.style.pointerEvents = 'auto';
     }
 
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    if (slotEl) {
+      slotEl.style.minHeight = '';
+    }
 
-    window.setTimeout(() => {
-      if (siteLayerRef.current) {
-        siteLayerRef.current.style.opacity = '';
-      }
-      setSkipState('done');
+    if (spacerEl) {
+      spacerEl.style.height = '0px';
+      spacerEl.style.display = 'none';
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+
+    setIntroCompleted(true);
+    setSkipState('done');
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
       ScrollTrigger.refresh();
-    }, 360);
+    });
   };
 
   if (prefersReducedMotion) {

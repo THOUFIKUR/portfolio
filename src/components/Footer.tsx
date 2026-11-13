@@ -1,16 +1,27 @@
 import React from 'react';
-import { Mail, Download, ArrowUp } from 'lucide-react';
+import { Mail, ArrowUp, Download } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/contactData';
 import { LinkedinIcon, GithubIcon } from './Icons';
+import { SectionAtmosphere } from './SectionAtmosphere';
+import {
+  trackEmailClicked,
+  trackLinkedInClicked,
+  trackGitHubClicked,
+} from '../lib/posthog';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenResume: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenResume }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-[#0D1911]/95 text-sand-light pt-16 pb-12 border-t border-white/10 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#0D1911]/95 text-sand-light pt-16 pb-12 border-t border-white/10 relative overflow-hidden z-10">
+      <SectionAtmosphere variant="center-glow" density="subtle" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-charcoal-light/30">
           {/* Brand Column */}
           <div className="md:col-span-5 space-y-4">
@@ -79,6 +90,7 @@ export const Footer: React.FC = () => {
             <div className="flex flex-wrap gap-2.5">
               <a
                 href={PERSONAL_INFO.emailAction}
+                onClick={() => trackEmailClicked()}
                 className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-charcoal-muted hover:bg-forest text-sand font-display text-sm font-medium transition-all duration-200 border border-charcoal-light/40"
                 aria-label="Send email to Thoufikur"
               >
@@ -89,6 +101,7 @@ export const Footer: React.FC = () => {
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackLinkedInClicked()}
                 className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-charcoal-muted hover:bg-forest text-sand font-display text-sm font-medium transition-all duration-200 border border-charcoal-light/40"
                 aria-label="Thoufikur's LinkedIn Profile (opens in new tab)"
               >
@@ -99,6 +112,7 @@ export const Footer: React.FC = () => {
                 href={PERSONAL_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackGitHubClicked()}
                 className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-charcoal-muted hover:bg-forest text-sand font-display text-sm font-medium transition-all duration-200 border border-charcoal-light/40"
                 aria-label="Thoufikur's GitHub Profile (opens in new tab)"
               >
@@ -108,14 +122,14 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <a
-                href={PERSONAL_INFO.resumePath}
-                download="Thoufikur-Rahaman-Resume.pdf"
-                className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-purple-electric hover:bg-purple-dark text-white font-display text-sm font-semibold transition-all duration-200 shadow-sm"
+              <button
+                type="button"
+                onClick={onOpenResume}
+                className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-purple-electric hover:bg-purple-dark text-white font-display text-sm font-semibold transition-all duration-200 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
               >
                 <Download className="w-4 h-4" />
-                <span>Download Verified Resume (PDF)</span>
-              </a>
+                <span>Download Resume (PDF)</span>
+              </button>
             </div>
           </div>
         </div>

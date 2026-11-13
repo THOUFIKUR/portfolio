@@ -4,6 +4,7 @@ import { EDUCATION_DATA } from '../data/resumeData';
 import { EngineeringProject } from '../data/projectsManifest';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard, SignatureCardVariant } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
 interface EngineeringSectionProps {
   engineeringProjects: EngineeringProject[];
@@ -40,15 +41,7 @@ export const EngineeringSection: React.FC<EngineeringSectionProps> = ({
       id="engineering"
       className="py-24 bg-[#122518]/85 text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      {/* Ambient Radial Accents */}
-      <div
-        aria-hidden="true"
-        className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-forest-light/25 blur-3xl pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 right-0 w-[26rem] h-[26rem] rounded-full bg-purple-electric/15 blur-3xl pointer-events-none"
-      />
+      <SectionAtmosphere variant="reverse-glow" density="dense" accentRing={true} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

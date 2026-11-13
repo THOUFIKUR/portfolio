@@ -4,14 +4,22 @@ import { PERSONAL_INFO } from '../data/contactData';
 import { LinkedinIcon, GithubIcon } from '../components/Icons';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
+import {
+  trackEmailClicked,
+  trackLinkedInClicked,
+  trackGitHubClicked,
+  trackDirectMessageClicked,
+} from '../lib/posthog';
 
 export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-24 bg-[#142519]/75 text-ivory border-t border-white/10 relative z-10"
+      className="py-24 bg-[#142519]/75 text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionAtmosphere variant="center-glow" accentRing={true} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <ScrollReveal direction="up" className="text-center space-y-3 max-w-2xl mx-auto mb-14">
           <div className="inline-flex items-center space-x-2 text-xs font-semibold tracking-wider uppercase text-purple-light bg-white/10 px-3.5 py-1.5 rounded-full border border-purple-electric/35 backdrop-blur-md">
@@ -33,10 +41,11 @@ export const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-14">
           {/* Card 1: Email */}
           <ScrollReveal delayMs={40} direction="up">
-            <SpotlightCard variant="forest" className="h-full">
+            <SpotlightCard variant="forest" className="h-full hover:border-purple-electric/40 transition-all duration-300 hover:-translate-y-1">
               <a
                 href={PERSONAL_INFO.emailAction}
-                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
+                onClick={() => trackEmailClicked()}
+                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric rounded-2xl"
               >
                 <div className="space-y-3">
                   <div className="p-3 w-max rounded-2xl bg-black/30 text-ivory border border-white/15 group-hover:bg-purple-electric transition-colors">
@@ -65,12 +74,13 @@ export const ContactSection: React.FC = () => {
 
           {/* Card 2: LinkedIn */}
           <ScrollReveal delayMs={110} direction="up">
-            <SpotlightCard variant="purple" className="h-full">
+            <SpotlightCard variant="purple" className="h-full hover:border-purple-electric/50 transition-all duration-300 hover:-translate-y-1">
               <a
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
+                onClick={() => trackLinkedInClicked()}
+                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric rounded-2xl"
               >
                 <div className="space-y-3">
                   <div className="p-3 w-max rounded-2xl bg-purple-electric text-white shadow-sm">
@@ -99,12 +109,13 @@ export const ContactSection: React.FC = () => {
 
           {/* Card 3: GitHub */}
           <ScrollReveal delayMs={180} direction="up">
-            <SpotlightCard variant="charcoal" className="h-full">
+            <SpotlightCard variant="charcoal" className="h-full hover:border-purple-electric/40 transition-all duration-300 hover:-translate-y-1">
               <a
                 href={PERSONAL_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
+                onClick={() => trackGitHubClicked()}
+                className="h-full group p-6 flex flex-col justify-between space-y-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric rounded-2xl"
               >
                 <div className="space-y-3">
                   <div className="p-3 w-max rounded-2xl bg-white/10 text-ivory border border-white/15 group-hover:bg-purple-electric transition-colors">
@@ -134,15 +145,15 @@ export const ContactSection: React.FC = () => {
 
         {/* Location & Direct CTA Banner */}
         <ScrollReveal direction="scale" delayMs={120}>
-          <SpotlightCard variant="obsidian" className="max-w-4xl mx-auto">
+          <SpotlightCard variant="obsidian" className="max-w-4xl mx-auto hover:border-purple-electric/40 transition-all duration-300">
             <div className="p-7 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
               <div className="space-y-1">
                 <div className="flex items-center justify-center sm:justify-start space-x-1.5 font-display text-xs text-purple-light font-semibold tracking-wide">
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="w-4 h-4 text-emerald-400" />
                   <span>{PERSONAL_INFO.location}</span>
                 </div>
                 <h4 className="font-display text-xl font-bold text-ivory">
-                  Open to Remote &amp; On-Site Creative Internships
+                  Open to Creative, Engineering &amp; Technology Opportunities
                 </h4>
                 <p className="font-editorial text-base text-sand-light/85">
                   Fast response via direct email or LinkedIn messaging.
@@ -150,7 +161,8 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <a
-                href={PERSONAL_INFO.emailAction}
+                href={PERSONAL_INFO.directMessageAction}
+                onClick={() => trackDirectMessageClicked()}
                 className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-forest hover:bg-forest-light text-ivory font-display text-sm font-bold border border-emerald-400/25 shadow-purple-glow hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
               >
                 <Send className="w-4 h-4 text-purple-light" />

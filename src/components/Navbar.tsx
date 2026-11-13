@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Download, Mail, ArrowUpRight } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/contactData';
+import { Menu, X, Mail, ArrowUpRight, FileText } from 'lucide-react';
 
 export type PortfolioTrack = 'creative' | 'engineering' | 'technology';
 
 interface NavbarProps {
   activeTrack: PortfolioTrack;
   onTrackChange: (track: PortfolioTrack) => void;
+  onOpenResume: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange, onOpenResume }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -90,15 +90,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) =>
 
           {/* Actions: Resume & Contact */}
           <div className="hidden sm:flex flex-shrink-0 items-center space-x-2.5">
-            <a
-              href={PERSONAL_INFO.resumePath}
-              download="Thoufikur-Rahaman-Resume.pdf"
+            <button
+              type="button"
+              onClick={onOpenResume}
               className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full border border-white/25 bg-white/5 text-xs font-semibold text-ivory hover:bg-white/15 hover:border-purple-light/60 transition-all duration-200 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
-              title="Download Verified Resume PDF"
+              title="Download Resume PDF"
             >
-              <Download className="w-3.5 h-3.5 text-sand" />
+              <FileText className="w-3.5 h-3.5 text-sand" />
               <span>Resume</span>
-            </a>
+            </button>
             <a
               href="#contact"
               className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full bg-forest text-ivory border border-forest-light/40 text-xs font-semibold hover:bg-forest-light hover:shadow-purple-glow transition-all duration-200 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
@@ -110,14 +110,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) =>
 
           {/* Mobile Controls */}
           <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
-            <a
-              href={PERSONAL_INFO.resumePath}
-              download="Thoufikur-Rahaman-Resume.pdf"
+            <button
+              type="button"
+              onClick={onOpenResume}
               className="sm:hidden p-2 text-ivory rounded-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
               aria-label="Download Resume"
             >
-              <Download className="w-5 h-5" />
-            </a>
+              <FileText className="w-5 h-5 text-sand" />
+            </button>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -173,16 +173,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTrack, onTrackChange }) =>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2.5 pt-2">
-            <a
-              href={PERSONAL_INFO.resumePath}
-              download="Thoufikur-Rahaman-Resume.pdf"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl border border-white/25 text-ivory font-semibold text-sm bg-white/5"
+          <div className="flex flex-col sm:flex-row gap-2.5 pt-2 border-t border-white/10">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenResume();
+              }}
+              className="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl border border-white/25 text-ivory font-semibold text-sm bg-white/5 hover:bg-white/10 transition-colors"
             >
-              <Download className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-sand" />
               <span>View Resume</span>
-            </a>
+            </button>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}

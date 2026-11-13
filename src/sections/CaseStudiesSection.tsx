@@ -3,6 +3,7 @@ import { ArrowUpRight, Layers, Wrench } from 'lucide-react';
 import { CaseStudy } from '../data/projectsManifest';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard, SignatureCardVariant } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
 interface CaseStudiesSectionProps {
   caseStudies: CaseStudy[];
@@ -20,15 +21,7 @@ export const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
       id="case-studies"
       className="py-24 bg-[#142218]/80 text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      {/* Ambient Radial Accents */}
-      <div
-        aria-hidden="true"
-        className="absolute -top-24 right-0 w-[28rem] h-[28rem] rounded-full bg-purple-electric/15 blur-3xl pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 -left-24 w-[24rem] h-[24rem] rounded-full bg-forest-light/20 blur-3xl pointer-events-none"
-      />
+      <SectionAtmosphere variant="reverse-glow" accentRing={true} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

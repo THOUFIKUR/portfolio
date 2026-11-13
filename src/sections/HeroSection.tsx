@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, ArrowUpRight, Download, Mail, Layers, Cpu, Code2, UserCheck } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Mail, Layers, Cpu, Code2, UserCheck, FileText } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/contactData';
 import { PortfolioTrack } from '../components/Navbar';
 import { PortraitAuraFrame } from '../components/PremiumMotion';
@@ -7,11 +7,13 @@ import { PortraitAuraFrame } from '../components/PremiumMotion';
 interface HeroSectionProps {
   activeTrack: PortfolioTrack;
   onTrackChange: (track: PortfolioTrack) => void;
+  onOpenResume: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   activeTrack,
   onTrackChange,
+  onOpenResume,
 }) => {
   const [scrollY, setScrollY] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -102,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   ];
 
   return (
-    <section className="relative pt-24 sm:pt-28 pb-0 overflow-hidden bg-hero-atmosphere text-ivory">
+    <section id="hero" className="relative pt-24 sm:pt-28 pb-0 overflow-hidden bg-hero-atmosphere text-ivory">
       {/* Dot Matrix & Atmospheric Texture */}
       <div aria-hidden="true" className="absolute inset-0 dot-matrix-overlay pointer-events-none" />
 
@@ -199,14 +201,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <ArrowDown className="w-4 h-4 text-purple-light group-hover:translate-y-0.5 transition-transform" />
               </a>
 
-              <a
-                href={PERSONAL_INFO.resumePath}
-                download="Thoufikur-Rahaman-Resume.pdf"
+              <button
+                type="button"
+                onClick={onOpenResume}
                 className="inline-flex items-center space-x-2 px-5 py-3.5 rounded-full border border-sand/35 bg-white/5 hover:bg-white/15 text-ivory font-display font-semibold text-sm hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
               >
-                <Download className="w-4 h-4 text-sand" />
+                <FileText className="w-4 h-4 text-sand" />
                 <span>View Resume</span>
-              </a>
+              </button>
 
               <a
                 href="#contact"

@@ -4,6 +4,7 @@ import { TechnologyProject } from '../data/projectsManifest';
 import { GithubIcon } from '../components/Icons';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard, SignatureCardVariant } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
 interface TechnologySectionProps {
   techProjects: TechnologyProject[];
@@ -15,9 +16,10 @@ export const TechnologySection: React.FC<TechnologySectionProps> = ({ techProjec
   return (
     <section
       id="technology"
-      className="py-24 bg-[#142519]/80 text-ivory border-t border-white/10 relative z-10"
+      className="py-24 bg-[#142519]/80 text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionAtmosphere variant="dual-glow" density="dense" accentRing={true} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <ScrollReveal direction="up" className="space-y-3 mb-14 max-w-3xl">
           <div className="inline-flex items-center space-x-2 text-xs font-display font-semibold tracking-wider uppercase text-purple-light bg-white/10 px-4 py-1.5 rounded-full border border-purple-electric/35 backdrop-blur-md">

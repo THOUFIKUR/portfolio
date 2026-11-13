@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { X, Eye, User, Building, Wrench, Check } from 'lucide-react';
 import { CaseStudy } from '../data/projectsManifest';
+import { trackProjectOpened, trackProjectModalClosed } from '../lib/posthog';
 
 interface CaseStudyModalProps {
   study: CaseStudy | null;
@@ -13,9 +14,29 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
   onClose,
   onOpenProjectById,
 }) => {
+  const handleClose = useCallback(() => {
+    if (study) {
+      trackProjectModalClosed({
+        id: study.id,
+        title: study.title,
+      });
+    }
+    onClose();
+  }, [study, onClose]);
+
+  useEffect(() => {
+    if (study) {
+      trackProjectOpened({
+        id: study.id,
+        title: study.title,
+        category: study.category,
+      });
+    }
+  }, [study?.id]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     if (study) {
       document.body.style.overflow = 'hidden';
@@ -25,7 +46,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [study, onClose]);
+  }, [study, handleClose]);
 
   if (!study) return null;
 
@@ -36,7 +57,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
       aria-label={`Case Study: ${study.title}`}
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#09120C]/90 backdrop-blur-md p-3 sm:p-6 overflow-y-auto"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) handleClose();
       }}
     >
       <div className="relative max-w-3xl w-full my-6 bg-[#131C15] text-ivory rounded-3xl border border-white/15 shadow-2xl shadow-purple-electric/10 overflow-hidden flex flex-col max-h-[90vh]">
@@ -52,7 +73,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="p-2 rounded-full text-sand/75 hover:text-ivory hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
             aria-label="Close Case Study"
           >

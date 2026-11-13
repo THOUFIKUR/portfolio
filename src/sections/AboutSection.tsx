@@ -2,6 +2,7 @@ import React from 'react';
 import { User, Compass, Lightbulb, Heart } from 'lucide-react';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { PortraitAuraFrame, SpotlightCard } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
 export const AboutSection: React.FC = () => {
   return (
@@ -9,11 +10,7 @@ export const AboutSection: React.FC = () => {
       id="about"
       className="py-24 bg-[#17211A] text-ivory border-t border-white/10 relative overflow-hidden z-10"
     >
-      {/* Ambient Electric Purple Glow */}
-      <div
-        aria-hidden="true"
-        className="absolute top-12 left-12 w-80 h-80 rounded-full bg-purple-electric/15 blur-3xl pointer-events-none"
-      />
+      <SectionAtmosphere variant="right-glow" density="dense" accentRing={true} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

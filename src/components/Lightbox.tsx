@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, User, Building } from 'lucide-react';
 import { CreativeProject } from '../data/projectsManifest';
+import { trackProjectOpened, trackProjectModalClosed } from '../lib/posthog';
 
 interface LightboxProps {
   project: CreativeProject | null;
@@ -37,9 +38,29 @@ export const Lightbox: React.FC<LightboxProps> = ({
     }
   }, [currentIndex, projectsList, onSelectProject]);
 
+  const handleClose = useCallback(() => {
+    if (project) {
+      trackProjectModalClosed({
+        id: project.id,
+        title: project.title,
+      });
+    }
+    onClose();
+  }, [project, onClose]);
+
+  useEffect(() => {
+    if (project) {
+      trackProjectOpened({
+        id: project.id,
+        title: project.title,
+        category: project.category,
+      });
+    }
+  }, [project?.id]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
       if (e.key === 'ArrowLeft') handlePrev();
       if (e.key === 'ArrowRight') handleNext();
     };
@@ -52,7 +73,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [project, onClose, handlePrev, handleNext]);
+  }, [project, handleClose, handlePrev, handleNext]);
 
   if (!project) return null;
 
@@ -63,13 +84,13 @@ export const Lightbox: React.FC<LightboxProps> = ({
       aria-label={`Artwork viewer: ${project.title}`}
       className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/95 backdrop-blur-md p-3 sm:p-6"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) handleClose();
       }}
     >
       {/* Close button */}
       <button
         type="button"
-        onClick={onClose}
+        onClick={handleClose}
         className="absolute top-4 right-4 z-50 p-2.5 rounded-full bg-charcoal-muted text-sand-light hover:bg-forest transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
         aria-label="Close artwork viewer (Escape)"
       >

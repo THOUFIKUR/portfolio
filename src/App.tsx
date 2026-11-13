@@ -3,6 +3,7 @@ import { Navbar, PortfolioTrack } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Lightbox } from './components/Lightbox';
 import { CaseStudyModal } from './components/CaseStudyModal';
+import { ResumeModal } from './components/ResumeModal';
 import { ScrollCinematicIntro } from './components/ScrollCinematicIntro';
 import { ScrollOrbField, ScrollPathDivider } from './components/ScrollOrbField';
 import { HeroSection } from './sections/HeroSection';
@@ -17,6 +18,7 @@ import { SkillsSection } from './sections/SkillsSection';
 import { LeadershipSection } from './sections/LeadershipSection';
 import { AchievementsSection } from './sections/AchievementsSection';
 import { ContactSection } from './sections/ContactSection';
+import { trackSectionViewed } from './lib/posthog';
 import {
   CREATIVE_PROJECTS,
   CASE_STUDIES,
@@ -30,6 +32,7 @@ export const App: React.FC = () => {
   const [activeTrack, setActiveTrack] = useState<PortfolioTrack>('creative');
   const [selectedArtwork, setSelectedArtwork] = useState<CreativeProject | null>(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   // Sync track with URL hash on load and hashchange
@@ -61,6 +64,50 @@ export const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Lightweight IntersectionObserver for meaningful section view tracking
+  useEffect(() => {
+    const sectionNames: Record<string, string> = {
+      'hero': 'Hero',
+      'selected-work': 'Selected Creative Work',
+      'case-studies': 'Case Studies',
+      'creative-archive': 'Graphic Design Archive',
+      'engineering': 'Electrical Engineering Track',
+      'technology': 'Technology Track',
+      'experience': 'Experience & Internships',
+      'about': 'About Thoufikur',
+      'skills': 'Skills & Toolkit',
+      'leadership': 'Leadership & Activities',
+      'achievements': 'Achievements & Resume',
+      'contact': "Let's Connect",
+    };
+
+    const trackedSections = new Set<string>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+            const id = entry.target.id;
+            if (id && !trackedSections.has(id)) {
+              trackedSections.add(id);
+              trackSectionViewed(id, sectionNames[id] || id);
+            }
+          }
+        });
+      },
+      {
+        threshold: [0.3],
+      }
+    );
+
+    Object.keys(sectionNames).forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   // Strict zero-duplication split:
@@ -108,13 +155,18 @@ export const App: React.FC = () => {
       </div>
 
       {/* Top Fixed Navbar */}
-      <Navbar activeTrack={activeTrack} onTrackChange={handleTrackChange} />
+      <Navbar
+        activeTrack={activeTrack}
+        onTrackChange={handleTrackChange}
+        onOpenResume={() => setIsResumeModalOpen(true)}
+      />
 
       <main className="flex-grow relative z-10">
         {/* PAGE 01: Hero Section */}
         <HeroSection
           activeTrack={activeTrack}
           onTrackChange={handleTrackChange}
+          onOpenResume={() => setIsResumeModalOpen(true)}
         />
 
         {/* PAGE 02: Selected Creative Work (Top 6 Flagship Projects) */}
@@ -162,14 +214,14 @@ export const App: React.FC = () => {
         <LeadershipSection />
 
         {/* PAGE 11: Achievements & Verified Resume Integration */}
-        <AchievementsSection />
+        <AchievementsSection onOpenResume={() => setIsResumeModalOpen(true)} />
 
         {/* PAGE 12: Contact Section (Verified External Links) */}
         <ContactSection />
       </main>
 
       {/* Global Footer */}
-      <Footer />
+      <Footer onOpenResume={() => setIsResumeModalOpen(true)} />
 
       {/* Lightbox Modal for Original Artwork Inspection */}
       <Lightbox
@@ -184,6 +236,12 @@ export const App: React.FC = () => {
         study={selectedCaseStudy}
         onClose={() => setSelectedCaseStudy(null)}
         onOpenProjectById={handleOpenArtworkById}
+      />
+
+      {/* Centralized Resume Selection Modal */}
+      <ResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
       />
       </div>
     </ScrollCinematicIntro>

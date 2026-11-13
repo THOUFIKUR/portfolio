@@ -1,14 +1,19 @@
 import React from 'react';
 import { Trophy, Download, ArrowUpRight, FileText } from 'lucide-react';
 import { ACHIEVEMENTS_DATA } from '../data/resumeData';
-import { PERSONAL_INFO } from '../data/contactData';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard } from '../components/PremiumMotion';
+import { SectionAtmosphere } from '../components/SectionAtmosphere';
 
-export const AchievementsSection: React.FC = () => {
+interface AchievementsSectionProps {
+  onOpenResume: () => void;
+}
+
+export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ onOpenResume }) => {
   return (
-    <section className="py-24 bg-[#112016]/80 text-ivory border-t border-white/10 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="achievements" className="py-24 bg-[#112016]/80 text-ivory border-t border-white/10 relative overflow-hidden z-10">
+      <SectionAtmosphere variant="right-glow" accentRing={true} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <ScrollReveal direction="up" className="space-y-3 mb-14 max-w-2xl">
           <div className="inline-flex items-center space-x-2 text-xs font-display font-semibold tracking-wider uppercase text-purple-light bg-white/10 px-4 py-1.5 rounded-full border border-purple-electric/35 backdrop-blur-md">
@@ -74,10 +79,10 @@ export const AchievementsSection: React.FC = () => {
                     </span>
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-ivory">
-                    Official Candidate Resume
+                    Official Candidate Resumes
                   </h3>
                   <p className="font-editorial text-base text-sand-light/90 leading-relaxed">
-                    Single-page PDF resume covering education standings, industrial internships, and verified technical skills.
+                    Download verified technical resumes tailored for Electrical &amp; AI or Embedded Systems engineering tracks.
                   </p>
                 </div>
 
@@ -97,15 +102,15 @@ export const AchievementsSection: React.FC = () => {
                 </div>
 
                 <div className="pt-2 relative z-10">
-                  <a
-                    href={PERSONAL_INFO.resumePath}
-                    download="Thoufikur-Rahaman-Resume.pdf"
+                  <button
+                    type="button"
+                    onClick={onOpenResume}
                     className="w-full inline-flex items-center justify-center space-x-2 py-4 px-6 rounded-full bg-ivory text-charcoal font-display font-bold text-sm hover:bg-sand transition-all duration-200 shadow-lg hover:-translate-y-0.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric"
                   >
                     <Download className="w-4 h-4 text-forest" />
                     <span>Download Resume (PDF)</span>
                     <ArrowUpRight className="w-4 h-4 text-purple-electric opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
+                  </button>
                 </div>
               </div>
             </SpotlightCard>
