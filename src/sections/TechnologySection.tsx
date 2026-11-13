@@ -5,6 +5,7 @@ import { GithubIcon } from '../components/Icons';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { SpotlightCard, SignatureCardVariant } from '../components/PremiumMotion';
 import { SectionAtmosphere } from '../components/SectionAtmosphere';
+import { trackTechnologyProjectLinkOpened } from '../lib/posthog';
 
 interface TechnologySectionProps {
   techProjects: TechnologyProject[];
@@ -249,6 +250,7 @@ export const TechnologySection: React.FC<TechnologySectionProps> = ({ techProjec
                               href={p.liveUrl}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => trackTechnologyProjectLinkOpened(p, 'live_project')}
                               className="inline-flex items-center space-x-1.5 px-5 py-2.5 rounded-full bg-forest hover:bg-forest-light text-ivory text-xs font-display font-semibold border border-emerald-400/30 shadow-sm transition-all hover:-translate-y-0.5"
                             >
                               <ExternalLink className="w-3.5 h-3.5 text-emerald-300" />
@@ -260,6 +262,7 @@ export const TechnologySection: React.FC<TechnologySectionProps> = ({ techProjec
                               href={p.githubUrl}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => trackTechnologyProjectLinkOpened(p, 'source_code')}
                               className="inline-flex items-center space-x-1.5 px-5 py-2.5 rounded-full bg-white/10 hover:bg-purple-electric text-ivory text-xs font-display font-semibold border border-white/20 transition-all hover:-translate-y-0.5"
                             >
                               <GithubIcon className="w-3.5 h-3.5" />

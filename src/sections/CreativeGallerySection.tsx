@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CreativeProject } from '../data/projectsManifest';
 import { SectionAtmosphere } from '../components/SectionAtmosphere';
+import { trackArtworkCategoryFiltered } from '../lib/posthog';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -256,7 +257,10 @@ export const CreativeGallerySection: React.FC<CreativeGallerySectionProps> = ({
                 type="button"
                 role="tab"
                 aria-selected={isSelected}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => {
+                  trackArtworkCategoryFiltered(cat);
+                  setSelectedCategory(cat);
+                }}
                 className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-display font-semibold transition-all duration-300 flex items-center space-x-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-electric cursor-pointer ${
                   isSelected
                     ? 'bg-purple-electric text-white shadow-[0_0_20px_rgba(139,92,246,0.5)] border border-purple-light/50 scale-[1.03]'
