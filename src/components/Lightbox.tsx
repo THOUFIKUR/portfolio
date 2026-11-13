@@ -1,7 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, User, Building } from 'lucide-react';
 import { CreativeProject } from '../data/projectsManifest';
-import { trackProjectOpened, trackProjectModalClosed } from '../lib/posthog';
+import {
+  trackArtworkOriginalOpened,
+  trackProjectOpened,
+  trackProjectModalClosed,
+} from '../lib/posthog';
 
 interface LightboxProps {
   project: CreativeProject | null;
@@ -171,6 +175,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
               href={project.rawArtwork}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackArtworkOriginalOpened(project)}
               className="inline-flex items-center space-x-1.5 text-purple-light hover:text-white transition-colors font-medium"
             >
               <span>View Original Hi-Res</span>

@@ -18,7 +18,7 @@ import { SkillsSection } from './sections/SkillsSection';
 import { LeadershipSection } from './sections/LeadershipSection';
 import { AchievementsSection } from './sections/AchievementsSection';
 import { ContactSection } from './sections/ContactSection';
-import { trackSectionViewed } from './lib/posthog';
+import { trackPortfolioTrackSelected, trackSectionViewed } from './lib/posthog';
 import {
   CREATIVE_PROJECTS,
   CASE_STUDIES,
@@ -117,6 +117,7 @@ export const App: React.FC = () => {
   const archiveProjects = CREATIVE_PROJECTS.filter((p) => !p.featured);
 
   const handleTrackChange = (track: PortfolioTrack) => {
+    trackPortfolioTrackSelected(track);
     setActiveTrack(track);
     window.location.hash = track;
 

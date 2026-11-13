@@ -1,54 +1,56 @@
 import posthog from 'posthog-js';
 
 const projectToken = import.meta.env.VITE_POSTHOG_PROJECT_TOKEN;
-const apiHost = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com';
+const apiHost = import.meta.env.VITE_POSTHOG_HOST;
 
 let isInitialized = false;
+
+const portfolioLogger = {
+  info: (message: string, attributes: Record<string, string>) => {
+    if (!isInitialized) return;
+
+    try {
+      posthog.logger.info(message, attributes);
+    } catch {}
+  },
+};
 
 export const initPostHog = () => {
   if (typeof window === 'undefined' || isInitialized) {
     return;
   }
 
-  if (!projectToken) {
-    console.warn('[PostHog] Project token is not configured. Analytics disabled.');
+  if (!projectToken || !apiHost) {
+    if (import.meta.env.DEV) {
+      const missingVariable = !projectToken
+        ? 'VITE_POSTHOG_PROJECT_TOKEN'
+        : 'VITE_POSTHOG_HOST';
+
+      throw new Error(
+        `${missingVariable} variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once ${missingVariable} is configured`,
+      );
+    }
+
     return;
   }
 
-  const isLocalhost =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname.endsWith('.local');
+  posthog.init(projectToken, {
+    api_host: apiHost,
+    logs: {
+      serviceName: 'thoufikur-portfolio-web',
+      environment: import.meta.env.MODE,
+    },
+    capture_exceptions: {
+      capture_unhandled_errors: true,
+      capture_unhandled_rejections: true,
+      capture_console_errors: false,
+    },
+  });
 
-  const devVerificationEnabled =
-    new URLSearchParams(window.location.search).get('verify_posthog') === 'true' ||
-    localStorage.getItem('posthog_verify') === 'true';
-
-  try {
-    posthog.init(projectToken, {
-      api_host: apiHost,
-      autocapture: false,
-      capture_pageview: 'history_change',
-      capture_pageleave: 'if_capture_pageview',
-      disable_session_recording: true,
-      persistence: 'localStorage+cookie',
-      respect_dnt: true,
-      loaded: (ph) => {
-        if (isLocalhost && !devVerificationEnabled) {
-          // Exclude default localhost dev traffic to prevent polluting production analytics,
-          // while allowing verification via ?verify_posthog=true or localStorage.setItem('posthog_verify','true')
-          ph.opt_out_capturing();
-          console.info(
-            '[PostHog] Dev mode: Localhost traffic opted out by default. Add ?verify_posthog=true to enable active testing.'
-          );
-        }
-      },
-    });
-
-    isInitialized = true;
-  } catch (err) {
-    console.error('[PostHog] Initialization error:', err);
-  }
+  isInitialized = true;
+  portfolioLogger.info('portfolio client initialized', {
+    application_area: 'bootstrap',
+  });
 };
 
 /**
@@ -120,28 +122,66 @@ export const trackResumeDownloaded = (resumeType: 'electrical_ai' | 'embedded_sy
 export const trackEmailClicked = () => {
   trackEvent('email_clicked', {
     channel: 'email',
-    recipient: 'thoufikurraham@gmail.com',
   });
 };
 
 export const trackLinkedInClicked = () => {
   trackEvent('linkedin_clicked', {
     channel: 'linkedin',
-    url: 'https://linkedin.com/in/thoufikur-rahaman-y-9a66a0388',
   });
 };
 
 export const trackGitHubClicked = () => {
   trackEvent('github_clicked', {
     channel: 'github',
-    url: 'https://github.com/THOUFIKUR',
   });
 };
 
 export const trackDirectMessageClicked = () => {
   trackEvent('direct_message_clicked', {
     channel: 'direct_message',
-    recipient: 'thoufikurrahaman@gmail.com',
+  });
+};
+
+export const trackPortfolioTrackSelected = (track: 'creative' | 'engineering' | 'technology') => {
+  trackEvent('portfolio_track_selected', {
+    portfolio_track: track,
+  });
+  portfolioLogger.info('portfolio track selected', {
+    portfolio_track: track,
+  });
+};
+
+export const trackArtworkCategoryFiltered = (category: string) => {
+  trackEvent('artwork_category_filtered', {
+    artwork_category: category,
+  });
+};
+
+export const trackTechnologyProjectLinkOpened = (
+  project: { id: string; title: string },
+  linkType: 'live_project' | 'source_code',
+) => {
+  trackEvent('technology_project_link_opened', {
+    project_id: project.id,
+    project_title: project.title,
+    link_type: linkType,
+  });
+  portfolioLogger.info('technology project link opened', {
+    project_id: project.id,
+    link_type: linkType,
+  });
+};
+
+export const trackArtworkOriginalOpened = (project: {
+  id: string;
+  title: string;
+  category: string;
+}) => {
+  trackEvent('artwork_original_opened', {
+    project_id: project.id,
+    project_title: project.title,
+    project_category: project.category,
   });
 };
 
